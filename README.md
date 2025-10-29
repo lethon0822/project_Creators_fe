@@ -1,29 +1,28 @@
-# creators_fe
+《 프로젝트명 》
+- DIY 공예 커뮤니티 웹사이트, Creators
 
-This template should help get you started developing with Vue 3 in Vite.
 
-## Recommended IDE Setup
+《 팀 구성원 》
+- 1인 (개인 프로젝트)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-## Customize configuration
+《 진행 기간 》
+- 10월 27일 ~
 
-See [Vite Configuration Reference](https://vite.dev/config/).
 
-## Project Setup
+《 기획 의도 》
+- DIY(Do It Yourself)나 수공예를 하는 사람들, 관심이 있는 사람들을 대상으로 한 커뮤니티 웹사이트를 제작하는 프로젝트.
+- **공예가이거나 공예에 관심 있는 사람들**이 커뮤니티를 형성하여 ****교류하고 자신의 팁을 공유하는 등, **소통 및 판매**와 관련된 기능을 구현하는 것이 목표.
 
-```sh
-npm install
-```
 
-### Compile and Hot-Reload for Development
+《 주요 기능 》
+- 교류를 위한 게시판 CRUD 및 메세지 기능
+- 수공예품 판매 및 구매 기능
+- 계정 별 미니 블로그 개설 및 관리 기능
+- 본인인증을 통해 문자, 카카오톡 등으로 사이트 내 알림 수신 기능
 
-```sh
-npm run dev
-```
 
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+《 사용한 기술 스택 》
+- 프론트엔드 : HTML, CSS, JS, Vue3 / VSCode
+- 백엔드 : Java / Intellij
+- 데이터베이스 : MariaDB

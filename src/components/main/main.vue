@@ -2,15 +2,13 @@
 
 <template>
   <div class="container">
-    <p class="content">내용</p>
+    <div class="gallery-board">
+
+    </div>
   </div>
 </template>
 
 <style scoped>
-.container {
-  height: 700px;
-}
-
 .content {
   justify-content: center;
   align-items: center;

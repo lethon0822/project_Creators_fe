@@ -5,9 +5,16 @@ import Main from './components/main/main.vue';
 </script>
 
 <template>
-  <Header />
+  <header>
+    <Header />
+  </header>
   <Main />
-  <Footer />
+  <footer>
+    <Footer />
+  </footer>
 </template>
 
-<style></style>
+<style scoped>
+footer {
+}
+</style>

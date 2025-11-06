@@ -13,12 +13,16 @@
 
 <style scoped>
 .container {
+  bottom:0px;
   background-color: #ccc;
 }
 
-.span-wrap{
-    display: flex;
-    justify-content: space-evenly;
-    padding : 10px;
+.span-wrap {
+  font-size: 14px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+  height: 40px;
 }
 </style>

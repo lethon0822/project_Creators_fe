@@ -1,15 +1,20 @@
 <script setup>
-import Header from '@/components/Header.vue';
-
+import Header from '@/components/main/Header.vue';
+import Footer from '@/components/main/Footer.vue';
+import Main from './components/main/main.vue';
 </script>
 
 <template>
-  <div>
+  <header>
     <Header />
-  </div>
+  </header>
+  <Main />
+  <footer>
+    <Footer />
+  </footer>
 </template>
 
-<style>
-a { text-decoration: none; color: black; }
-.swiper-wrapper { align-items: center; }
+<style scoped>
+footer {
+}
 </style>

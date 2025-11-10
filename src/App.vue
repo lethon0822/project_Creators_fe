@@ -16,5 +16,8 @@ import Main from './components/main/main.vue';
 
 <style scoped>
 footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 </style>

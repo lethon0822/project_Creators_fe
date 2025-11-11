@@ -4,7 +4,6 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Autoplay, Navigation } from 'swiper/modules';
-import arrow from '@/assets/slider_arrow.svg';
 
 const source = [
   { id: 1, image: 'https://picsum.photos/200/301' },
@@ -15,6 +14,9 @@ const source = [
 
 // Swiper 인스턴스 참조
 const swiperRef = ref(null);
+
+const stopAutoplay = () => swiperInstance.value?.autoplay?.stop();
+const startAutoplay = () => swiperInstance.value?.autoplay?.start();
 </script>
 
 <template>
@@ -22,43 +24,41 @@ const swiperRef = ref(null);
     <div class="top-container">
       <div class="lasted">최신 작품 보기</div>
     </div>
-    <swiper
-      ref="swiperRef"
-      :modules="[Pagination, Autoplay, Navigation]"
-      :slides-per-view="3"
-      :space-between="5"
-      :loop="true"
-      :autoplay="{ delay: 3000, disableOnInteraction: true }"
-      :pagination="{ clickable: true }"
-      :navigation="true"
-      @swiper="swiperRef = $event"
-      @mouseenter="swiperRef?.autoplay?.stop()"
-      @mouseleave="swiperRef?.autoplay?.start()"
-    >
-      <swiper-slide v-for="item in source" :key="item.id">
-        <a href="12345567890"><img :src="item.image" alt="이미지" /></a>
-      </swiper-slide>
-      <button class="slide_bt slide_bt_left">
-        <img :src="arrow" alt="left" title="left" />
-      </button>
-
-      <button class="slide_bt slide_bt_right">
-        <img :src="arrow" alt="right" title="right" />
-      </button>
-    </swiper>
+    <div class="swiper-container">
+      <swiper
+        ref="swiperRef"
+        :modules="[Pagination, Autoplay, Navigation]"
+        :slides-per-view="3"
+        :space-between="5"
+        :loop="true"
+        :autoplay="{ delay: 3000, disableOnInteraction: true }"
+        :pagination="{ clickable: true }"
+        :navigation="true"
+        @swiper="swiperInstance = $event"
+        @mouseenter="stopAutoplay"
+        @mouseleave="startAutoplay"
+      >
+        <swiper-slide v-for="item in source" :key="item.id">
+          <a href="12345567890"><img :src="item.image" alt="이미지" /></a>
+        </swiper-slide>
+      </swiper>
+    </div>
 
     <div class="grid-container">
       <div v-for="(box, index) in 6" :key="index" class="box">
         <!-- 상단 더보기 버튼 -->
+        <button class="more-btn">더보기</button>
         <div class="header">
-          <button class="more-btn">더보기</button>
+          <div style="width: 100px">번호</div>
+          <div style="width: 200px">소분류</div>
+          <div style="width: 100%">제목</div>
         </div>
 
         <!-- 리스트 영역 -->
         <div class="list">
-          <ul>
-            <li v-for="i in 10" :key="i">항목 {{ i }}</li>
-          </ul>
+          <div v-for="i in 10" :key="i" style="padding: 5px 10px">
+            항목 {{ i }}
+          </div>
         </div>
       </div>
     </div>
@@ -84,6 +84,10 @@ const swiperRef = ref(null);
   font-weight: 700;
 }
 
+.swiper-container {
+  display: flex;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(2, 500px); /* 2열 */
@@ -98,9 +102,13 @@ const swiperRef = ref(null);
 
 .header {
   background-color: #f5f1e8;
+  padding: 5px;
   display: flex;
-  justify-content: flex-end; /* 오른쪽에 버튼 배치 */
-  margin-bottom: 5px;
+}
+
+.header div {
+  display: flex;
+  justify-content: center;
 }
 
 .more-btn {
@@ -109,26 +117,13 @@ const swiperRef = ref(null);
   padding: 5px 10px;
   font-weight: 700;
   cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 
-.list li {
+.list div {
   border-bottom: 1px solid #eee;
-  padding: 4px 0;
-  list-style-type: none;
-}
-
-.swiper-button-prev,
-.swiper-button-next {
-  position: absolute;
-  top: 50%;
-  z-index: 100;
-  width: 50px;
-  height: 50px;
-  background-color: rgba(255, 255, 255, 0.85);
-  border: #e6e6e6;
-  border-radius: 50%;
-  box-shadow: 0 0 0.8px rgba(0, 0, 0, 0.13);
-  cursor: pointer;
 }
 
 #app {
@@ -177,4 +172,12 @@ body {
   width: 100%;
 }
 
+.swiper-button-prev,
+.swiper-button-next {
+  width: 50px;
+  height: 50px;
+  background-color: #f5f1e8;
+  border-radius: 50%;
+  cursor: pointer;
+}
 </style>

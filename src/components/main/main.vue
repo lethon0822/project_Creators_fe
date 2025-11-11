@@ -172,12 +172,15 @@ body {
   width: 100%;
 }
 
-.swiper-button-prev,
-.swiper-button-next {
+.swiper-button-prev .swiper-button-next .swiper-navigation-icon {
+  font-size: 30px;
+  font-weight: 700;
   width: 50px;
   height: 50px;
   background-color: #f5f1e8;
   border-radius: 50%;
-  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

@@ -20,7 +20,7 @@ import Main from '@/components/main/main.vue';
 body {
   margin : 15px;
 }
-footer {
+header footer {
   position: fixed;
   bottom: 0;
   width: 100%;

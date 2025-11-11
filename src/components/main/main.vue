@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Autoplay, Navigation } from 'swiper/modules';
-import arrow from '@/assets/slider_arrow.svg'
+import arrow from '@/assets/slider_arrow.svg';
 
 const source = [
   { id: 1, image: 'https://picsum.photos/200/301' },
@@ -15,41 +15,56 @@ const source = [
 
 // Swiper 인스턴스 참조
 const swiperRef = ref(null);
-
-const stopAutoplay = () => swiperInstance.value?.autoplay?.stop();
-const startAutoplay = () => swiperInstance.value?.autoplay?.start();
+const onSwiper = (swiper) => {
+  swiperRef.value = swiper;
+};
+// 커스텀 버튼 제어
+const slidePrev = () => swiperRef.value?.slidePrev();
+const slideNext = () => swiperRef.value?.slideNext();
 </script>
 
 <template>
   <div class="container">
     <div class="top-container">
-      <div class="lasted">최신 작품 보기</div>
+      <div class="lasted">최근 작품 보기</div>
     </div>
-    <div class="swiper-container">
-      <swiper
-        ref="swiperRef"
-        :modules="[Pagination, Autoplay, Navigation]"
-        :slides-per-view="3"
-        :space-between="5"
-        :loop="true"
-        :autoplay="{ delay: 3000, disableOnInteraction: false }"
-        :pagination="{ clickable: true }"
-        @swiper="swiperInstance = $event"
-        @mouseenter="stopAutoplay"
-        @mouseleave="startAutoplay"
+    <div class="swiper-container-wrap">
+      <!-- 왼쪽 버튼 -->
+      <button class="swiper_button_prev" @click="slidePrev">
+        <img :src="arrow" alt="prev" />
+      </button>
+
+      <!-- 스와이퍼 -->
+      <div class="swiper-container">
+        <swiper
+          ref="swiperRef"
+          :modules="[Pagination, Autoplay, Navigation]"
+          :slides-per-view="3"
+          :space-between="10"
+          :loop="true"
+          :autoplay="{ delay: 3000, disableOnInteraction: false }"
+          :pagination="{ clickable: true }"
+          @swiper="onSwiper"
         >
-        <button class="swiper_button_prev" @click="slidePrev"><img :src="arrow"/></button>
-        <button class="swiper_button_next" @click="slideNext"><img :src="arrow"/></button>
-        <swiper-slide v-for="item in source" :key="item.id">
-          <a href="12345567890"><img :src="item.image" alt="이미지" /></a>
-        </swiper-slide>
-      </swiper>
+          <swiper-slide v-for="item in source" :key="item.id">
+            <a href="#"><img :src="item.image" alt="이미지" /></a>
+          </swiper-slide>
+        </swiper>
+      </div>
+
+      <!-- 오른쪽 버튼 -->
+      <button class="swiper_button_next" @click="slideNext">
+        <img :src="arrow" alt="next" />
+      </button>
     </div>
 
     <div class="grid-container">
-      <div v-for="(box, index) in 6" :key="index" class="box">
+      <div v-for="(board, index) in 6" :key="index" class="board">
         <!-- 상단 더보기 버튼 -->
-        <button class="more-btn">더보기</button>
+        <div class="titleAndMore">
+          <div>{{게시판}}</div>
+          <button class="more-btn">더보기</button>
+        </div>
         <div class="header">
           <div style="width: 100px">번호</div>
           <div style="width: 200px">소분류</div>
@@ -62,7 +77,6 @@ const startAutoplay = () => swiperInstance.value?.autoplay?.start();
             항목 {{ i }}
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -70,6 +84,8 @@ const startAutoplay = () => swiperInstance.value?.autoplay?.start();
 
 <style scoped>
 .container {
+  width: 1024px;
+  margin: auto;
 }
 
 .top-container {
@@ -87,8 +103,12 @@ const startAutoplay = () => swiperInstance.value?.autoplay?.start();
   font-weight: 700;
 }
 
-.swiper-container {
+.swiper-container-wrap {
   display: flex;
+  align-items: center;
+  position: relative;
+  max-width: 1000px;
+  margin: auto;
 }
 
 .grid-container {
@@ -99,7 +119,7 @@ const startAutoplay = () => swiperInstance.value?.autoplay?.start();
   margin: 50px 150px;
 }
 
-.box {
+.board {
   border: 1px solid #ccc;
 }
 
@@ -114,15 +134,18 @@ const startAutoplay = () => swiperInstance.value?.autoplay?.start();
   justify-content: center;
 }
 
-.more-btn {
+.titleAndMore {
   background-color: #f5f1e8;
-  border: 1px solid #f5f1e8;
   padding: 5px 10px;
   font-weight: 700;
   cursor: pointer;
   display: flex;
-  justify-content: flex-end;
-  width: 100%;
+  justify-content: space-between;
+}
+
+.more-btn {
+  background-color: #f5f1e8;
+  border: 1px solid #f5f1e8;
 }
 
 .list div {
@@ -148,7 +171,7 @@ body {
 }
 
 .swiper {
-  width: 1000px;
+  width: 920px;
   height: 100%;
 }
 
@@ -170,52 +193,38 @@ body {
   border: 5px solid #eee;
 }
 
-.swiper-container-wrapper {
-  position: relative;
-  width: 100%;
-}
-
 .swiper-container {
   position: relative; /* 내비게이션 위치 기준 */
-  width: 100%;
-  max-width: 1000px;
   margin: auto;
 }
 
-/* 내비게이션 버튼 공통
 .swiper_button_prev,
 .swiper_button_next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #333;
-  z-index: 10;
+  color: #ccc;
   width: 40px;
   height: 40px;
+  border: 1px solid #000;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  background-color: #f5f1e8;
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   transition: all 0.3s ease;
 }
 
- 왼쪽 바깥쪽 
 .swiper_button_prev {
-  left: -60px;
+  left: -40px; /* 👉 음수로 줄수록 더 멀리 */
 }
 
- 오른쪽 바깥쪽 
 .swiper_button_next {
-  right: -60px;
-}
-*/
-
-.swiper-pagination-bullet {
-  width: 300px;
+  right: -40px;
 }
 
+:deep(.swiper-pagination-bullet) {
+  color: #fff !important;
+  border: 1px solid #000;
+}
 
 .swiper_button_prev {
   transform: rotate(180deg);
@@ -224,12 +233,10 @@ body {
   align-items: center;
 }
 
-.swiper_button_prev 
-.swiper_button_next {
+.swiper_button_prev .swiper_button_next {
   color: #f5f1e8;
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
-
 </style>

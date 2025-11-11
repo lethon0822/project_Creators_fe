@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Autoplay, Navigation } from 'swiper/modules';
+import arrow from '@/assets/slider_arrow.svg'
 
 const source = [
   { id: 1, image: 'https://picsum.photos/200/301' },
@@ -31,13 +32,14 @@ const startAutoplay = () => swiperInstance.value?.autoplay?.start();
         :slides-per-view="3"
         :space-between="5"
         :loop="true"
-        :autoplay="{ delay: 3000, disableOnInteraction: true }"
+        :autoplay="{ delay: 3000, disableOnInteraction: false }"
         :pagination="{ clickable: true }"
-        :navigation="true"
         @swiper="swiperInstance = $event"
         @mouseenter="stopAutoplay"
         @mouseleave="startAutoplay"
-      >
+        >
+        <button class="swiper_button_prev" @click="slidePrev"><img :src="arrow"/></button>
+        <button class="swiper_button_next" @click="slideNext"><img :src="arrow"/></button>
         <swiper-slide v-for="item in source" :key="item.id">
           <a href="12345567890"><img :src="item.image" alt="이미지" /></a>
         </swiper-slide>
@@ -60,6 +62,7 @@ const startAutoplay = () => swiperInstance.value?.autoplay?.start();
             항목 {{ i }}
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -172,15 +175,61 @@ body {
   width: 100%;
 }
 
-.swiper-button-prev .swiper-button-next .swiper-navigation-icon {
-  font-size: 30px;
-  font-weight: 700;
-  width: 50px;
-  height: 50px;
-  background-color: #f5f1e8;
+.swiper-container {
+  position: relative; /* 내비게이션 위치 기준 */
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* 내비게이션 버튼 공통
+.swiper_button_prev,
+.swiper_button_next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #333;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+ 왼쪽 바깥쪽 
+.swiper_button_prev {
+  left: -60px;
+}
+
+ 오른쪽 바깥쪽 
+.swiper_button_next {
+  right: -60px;
+}
+*/
+
+.swiper-pagination-bullet {
+  width: 300px;
+}
+
+
+.swiper_button_prev {
+  transform: rotate(180deg);
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+.swiper_button_prev 
+.swiper_button_next {
+  color: #f5f1e8;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
 </style>

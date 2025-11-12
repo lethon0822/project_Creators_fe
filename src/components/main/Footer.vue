@@ -13,7 +13,7 @@
 
 <style scoped>
 .container {
-  bottom:0px;
+  bottom: 0;
   background-color: #ccc;
 }
 

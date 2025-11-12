@@ -19,14 +19,16 @@ const source = [
 
 <template>
   <div class="container">
-     <!-- 햄버거 버튼 -->
+    <!-- 햄버거 버튼 -->
     <button class="menu-toggle" @click="toggleMenu">☰</button>
     <!-- 사이드 메뉴 -->
     <div class="side-menu" :class="{ open: menuOpen }">
       <button class="close-btn" @click="toggleMenu">✕</button>
-      <div style="margin-top: 20px;">[게시판]</div>
+      <div style="margin-top: 20px">[게시판]</div>
       <ul class="board_list" v-for="item in source" :key="item.id">
-        <li><a href="#" style="text-decoration-line: none;">{{ item.key }}</a></li>
+        <li>
+          <a href="#" style="text-decoration-line: none">{{ item.key }}</a>
+        </li>
       </ul>
     </div>
 
@@ -34,11 +36,11 @@ const source = [
     <div class="overlay" v-if="menuOpen" @click="toggleMenu"></div>
     <header>
       <div class="button-wrap">
-        <a href="#"><img :src="logo" alt="로고 이미지" class="logo" /></a>
+        <a href="/"><img :src="logo" alt="로고 이미지" class="logo" /></a>
         <div class="left-wrap">
-          <a href="#" class="button">작품</a>
-          <a href="#" class="button">커뮤니티</a>
-          <a href="#" class="button">상점</a>
+          <a href="/" class="button">작품</a>
+          <a href="/" class="button">커뮤니티</a>
+          <a href="/" class="button">상점</a>
         </div>
         <div class="search-wrap">
           <div class="search-bar">
@@ -47,9 +49,9 @@ const source = [
           <img :src="search" class="search" />
         </div>
         <div class="right-wrap">
-          <a href="#" class="button">마이블로그</a>
-          <a href="#" class="button">장바구니</a>
-          <a href="#" class="button">로그인</a>
+          <router-link to="/login" class="button">마이블로그</router-link>
+          <router-link to="/login" class="button">장바구니</router-link>
+          <router-link to="/login" class="button">로그인</router-link>
         </div>
       </div>
     </header>
